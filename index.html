@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preetham - Frontend Developer & UI/UX Designer</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP and Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    
+    <!-- Typed.js for typing effect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.min.js"></script>
+    
+    <!-- AOS - Animate on Scroll -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <!-- Particles.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --accent: #60a5fa;
+            --neon: #06f;
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --light-bg: #f8fafc;
+            --light-card: #f1f5f9;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: #f1f5f9;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+        
+        body.light-mode {
+            background-color: var(--light-bg);
+            color: #1e293b;
+        }
+        
+        /* Particles background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            top: 0;
+            left: 0;
+        }
+        
+        body.light-mode #particles-js {
+            filter: invert(0.9);
+        }
+        
+        /* Glassmorphism effects */
+        .glass {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        
+        body.light-mode .glass {
+            background: rgba(248, 250, 252, 0.4);
+            border: 1px solid rgba(71, 85, 105, 0.2);
+        }
+        
+        /* Neon glow */
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3), 0 0 40px rgba(6, 182, 212, 0.15);
+        }
+        
+        .neon-text {
+            background: linear-gradient(135deg, #06f, #0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        body.light-mode .neon-text {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Scroll progress bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #06f, #0ff);
+            z-index: 1000;
+            width: 0%;
+        }
+        
+        /* Section animations */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 80px 20px;
+        }
+        
+        /* Hover glow effect */
+        .hover-glow {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(6, 182, 212, 0.2);
+        }
+        
+        body.light-mode .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(2, 132, 199, 0.3), 0 0 40px rgba(2, 132, 199, 0.1);
+        }
+        
+        /* Smooth text reveal */
+        .text-reveal {
+            overflow: hidden;
+        }
+        
+        .text-reveal span {
+            display: inline-block;
+            opacity: 0;
+        }
+        
+        /* Floating animation */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Gradient animation */
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        .gradient-animate {
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+        }
+        
+        /* Star animation */
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        
+        .star {
+            animation: twinkle 3s ease-in-out infinite;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #06f);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        .back-to-top:hover {
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.6);
+        }
+        
+        .back-to-top.show {
+            display: flex;
+        }
+        
+        /* Smooth scroll on light mode */
+        body.light-mode {
+            background: linear-gradient(135deg, var(--light-bg) 0%, #e0f2fe 100%);
+        }
+        
+        /* Skill card styles */
+        .skill-card {
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-8px) rotateX(5deg);
+        }
+        
+        /* Project card hover */
+        .project-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .project-card:hover::before {
+            left: 100%;
+        }
+        
+        /* Timeline styles */
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background: linear-gradient(135deg, #3b82f6, #06f);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 25px;
+            width: 1px;
+            height: calc(100% + 20px);
+            background: linear-gradient(180deg, rgba(59, 130, 246, 0.5), transparent);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        /* Cursor trail effect */
+        .cursor-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, #06f, #0ff);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
+        }
+        
+        /* Loading animation */
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(59, 130, 246, 0.2);
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 20px;
+            }
+            
+            .back-to-top {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+    
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle" class="fixed top-8 right-8 z-50 p-3 rounded-full glass hover-glow transition-all duration-300">
+        <i class="fas fa-sun text-yellow-400"></i>
+    </button>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-40 glass border-b border-opacity-20">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold neon-text">PT</div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-sm font-medium hover:text-blue-400 transition">Home</a>
+                <a href="#about" class="nav-link text-sm font-medium hover:text-blue-400 transition">About</a>
+                <a href="#skills" class="nav-link text-sm font-medium hover:text-blue-400 transition">Skills</a>
+                <a href="#projects" class="nav-link text-sm font-medium hover:text-blue-400 transition">Projects</a>
+                <a href="#learning" class="nav-link text-sm font-medium hover:text-blue-400 transition">Learning</a>
+                <a href="#contact" class="nav-link text-sm font-medium hover:text-blue-400 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ========== HERO SECTION ========== -->
+    <section id="home" class="section relative overflow-hidden">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Hero Text -->
+                <div class="z-10">
+                    <div class="mb-6 opacity-0" id="greetingText">
+                        <p class="text-cyan-400 font-semibold mb-4 text-lg">👋 Hey there, welcome!</p>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight opacity-0" id="heroTitle">
+                        I'm <span class="neon-text">Preetham</span>
+                    </h1>
+                    
+                    <div class="text-xl md:text-2xl text-slate-300 mb-8 h-12 opacity-0" id="typingContainer"></div>
+                    
+                    <p class="text-slate-400 text-lg mb-8 leading-relaxed opacity-0 max-w-lg" id="heroDescription">
+                        Crafting beautiful, interactive experiences with code and motion. Currently building <span class="text-blue-400 font-semibold">FestFlow</span> — an event management system that brings ideas to life.
+                    </p>
+                    
+                    <div class="flex gap-4 opacity-0" id="heroButtons">
+                        <a href="#projects" class="px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition transform hover:scale-105">
+                            View My Work
+                        </a>
+                        <a href="#contact" class="px-8 py-3 border border-blue-500 text-blue-400 rounded-lg font-semibold hover:bg-blue-500/10 transition">
+                            Get in Touch
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Hero Image/Animation -->
+                <div class="flex justify-center md:justify-end opacity-0" id="heroImage">
+                    <div class="relative w-64 h-64 md:w-96 md:h-96">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500 via-purple-500 to-cyan-500 rounded-3xl opacity-20 blur-3xl float"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-3xl opacity-10 neon-glow"></div>
+                        <div class="relative w-full h-full bg-gradient-to-br from-slate-700 to-slate-900 rounded-3xl flex items-center justify-center border border-slate-600/50">
+                            <div class="text-center">
+                                <i class="fas fa-code text-6xl text-blue-400 mb-4"></i>
+                                <p class="text-slate-300 font-semibold">Creative Developer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce" id="scrollIndicator">
+                <i class="fas fa-chevron-down text-blue-400 text-2xl"></i>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========== ABOUT SECTION ========== -->
+    <section id="about" class="section bg-opacity-50">
+        <div class="max-w-7xl mx-auto w-full">
+            <h2 class="text-5xl font-bold mb-12 text-center neon-text" data-aos="fade-up">About Me</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right" data-aos-duration="1000">
+                    <div class="space-y-6 text-lg text-slate-300 leading-relaxed">
+                        <p>
+                            I'm a passionate frontend developer and UI/UX enthusiast from Hyderabad, India. I love creating beautiful, interactive digital experiences that blend aesthetics with functionality.
+                        </p>
+                        <p>
+                            My journey in tech started with a fascination for how things work. Today, I spend my time mastering modern web technologies, experimenting with motion design, and building projects that solve real problems.
+                        </p>
+                        <p>
+                            When I'm not coding, you'll find me exploring new design trends, contributing to open-source projects, or working on <span class="text-blue-400 font-semibold">FestFlow</span> — my passion project for event management.
+                        </p>
+                    </div>
+                    <div class="mt-8 space-y-3">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-cyan-400"></i>
+                            <span>UI/UX Design & Development</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-cyan-400"></i>
+                            <span>Motion Design & Animation</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-cyan-400"></i>
+                            <span>Responsive Web Development</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div data-aos="fade-left" data-aos-duration="1000" class="flex justify-center">
+                    <div class="relative w-80 h-80">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-3xl blur-2xl"></div>
+                        <div class="relative w-full h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl border border-slate-600/50 flex items-center justify-center glass neon-glow">
+                            <div class="text-center">
+                                <div class="text-7xl mb-4">🎨</div>
+                                <p class="text-slate-300 font-semibold">Student | Developer</p>
+                                <p class="text-slate-400 text-sm mt-2">Tech Explorer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========== SKILLS SECTION ========== -->
+    <section id="skills" class="section">
+        <div class="max-w-7xl mx-auto w-full">
+            <h2 class="text-5xl font-bold mb-16 text-center neon-text" data-aos="fade-up">Tech Stack</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- HTML -->
+                <div class="skill-card glass rounded-xl p-6 hover-glow text-center" data-aos="zoom-in" data-aos-delay="0">
+                    <i class="fab fa-html5 text-orange-500 text-4xl mb-4 block"></i>
+                    <h3 class="font-semibold mb-2">HTML5</h3>
+                    <p class="text-xs text-slate-400">Semantic Markup</p>
+                </div>
+                
+                <!-- CSS -->
+                <div class="skill-card glass rounded-xl p-6 hover-glow text-center" data-aos="zoom-in" data-aos-delay="50">
+                    <i class="fab fa-css3-alt text-blue-500 text-4xl mb-4 block"></i>
+                    <h3 class="font-semibold mb-2">CSS3</h3>
+                    <p class="text-xs text-slate-400">Advanced Styling</p>
+                </div>
+                
+                <!-- JavaScript -->
+                <div class="skill-card glass rounded-xl p-6 hover-glow text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fab fa-js-square text-yellow-400 text-4xl mb-4 block"></i>
+                    <h3 class="font-semibold mb-2">JavaScript</h3>
+                    <p class="text-xs text-slate-400">ES6+</p>
+                </div>
+                
+                <!-- React -->
+                <div class="skill-card glass rounded-xl p-6 hover-glow text-center" data-aos="zoom-in" data-aos-delay="150">
+                    <i class="fab fa-react text-cyan-400 text-4xl mb-4 block"></i>
+                    <h3 class="font-semibold mb-2">React</h3>
+                    <p class="text-xs text-slate-400">Components</p>
+                </div>
+                
+                <!-- Tailwind -->
+                <div class="skill-card glass rounded-xl p-6 hover-glow text-center" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fas fa-wind text-cyan-300 text-4xl mb-4 block"></i>
+                    <h3 class="font-semibold mb-2">Tailwind</h3>
+                    <p class="text-xs text-slate-400">Utility-First CSS</p>
+                </div>
+                
+                <!-- GSAP -->
+                <div class="skill-card glass rounded-xl p-6 hover-glow text-center" data-aos="zoom-in" data-aos-delay="250">
+                    <i class="fas fa-layer-group text-green-400 text-4xl mb-4 block"></i>
+                    <h3 class="font-semibold mb-2">GSAP</h3>
+                    <p class="text-xs text-slate-400">Animation Library</p>
+                </div>
+                
+                <!-- Firebase -->
+                <div class="skill-card glass rounded-xl p-6 hover-glow text-center" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-database text-orange-400 text-4xl mb-4 block"></i>
+                    <h3 class="font-semibold mb-2">Firebase</h3>
+                    <p class="text-xs text-slate-400">Backend</p>
+                </div>
+                
+                <!-- Flutter -->
+                <div class="skill-card glass rounded-xl p-6 hover-glow text-center" data-aos="zoom-in" data-aos-delay="350">
+                    <i class="fas fa-mobile-alt text-blue-400 text-4xl mb-4 block"></i>
+                    <h3 class="font-semibold mb-2">Flutter</h3>
+                    <p class="text-xs text-slate-400">Mobile Dev</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========== PROJECTS SECTION ========== -->
+    <section id="projects" class="section">
+        <div class="max-w-7xl mx-auto w-full">
+            <h2 class="text-5xl font-bold mb-16 text-center neon-text" data-aos="fade-up">Featured Projects</h2>
+            
+            <!-- FestFlow Project -->
+            <div class="project-card glass rounded-2xl overflow-hidden border border-slate-700/50 mb-12" data-aos="fade-up" data-aos-duration="1000">
+                <div class="grid md:grid-cols-2 gap-8 p-8">
+                    <div class="flex flex-col justify-center">
+                        <h3 class="text-3xl font-bold mb-4 text-blue-400">FestFlow</h3>
+                        <p class="text-slate-300 text-lg mb-6 leading-relaxed">
+                            A comprehensive event management system designed to streamline the process of planning, organizing, and executing events. Features include real-time registration, interactive dashboards, and seamless integrations.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">React</span>
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">Firebase</span>
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">Tailwind</span>
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">GSAP</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="https://github.com" target="_blank" class="px-6 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition flex items-center gap-2">
+                                <i class="fab fa-github"></i> View on GitHub
+                            </a>
+                            <a href="#" class="px-6 py-2 border border-blue-500 text-blue-400 rounded-lg font-semibold hover:bg-blue-500/10 transition flex items-center gap-2">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <div class="relative w-full h-64 md:h-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-slate-600/50 flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="fas fa-calendar-alt text-5xl text-blue-400 mb-4"></i>
+                                <p class="text-slate-300 font-semibold">Event Management</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Other Projects Grid -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Project 2 -->
+                <div class="project-card glass rounded-xl p-6 hover-glow border border-slate-700/50 transition" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-palette text-purple-400 text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3 text-purple-400">UI Component Library</h3>
+                    <p class="text-slate-400 mb-4">
+                        Reusable, accessible React components with Tailwind CSS and GSAP animations.
+                    </p>
+                    <div class="flex gap-2 mb-4">
+                        <span class="text-xs px-2 py-1 bg-purple-500/20 text-purple-300 rounded">React</span>
+                        <span class="text-xs px-2 py-1 bg-purple-500/20 text-purple-300 rounded">Storybook</span>
+                    </div>
+                    <a href="#" class="text-purple-400 hover:text-purple-300 font-semibold flex items-center gap-2">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card glass rounded-xl p-6 hover-glow border border-slate-700/50 transition" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-chart-line text-green-400 text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3 text-green-400">Analytics Dashboard</h3>
+                    <p class="text-slate-400 mb-4">
+                        Real-time data visualization dashboard with interactive charts and smooth animations.
+                    </p>
+                    <div class="flex gap-2 mb-4">
+                        <span class="text-xs px-2 py-1 bg-green-500/20 text-green-300 rounded">React</span>
+                        <span class="text-xs px-2 py-1 bg-green-500/20 text-green-300 rounded">Chart.js</span>
+                    </div>
+                    <a href="#" class="text-green-400 hover:text-green-300 font-semibold flex items-center gap-2">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========== LEARNING SECTION ========== -->
+    <section id="learning" class="section">
+        <div class="max-w-7xl mx-auto w-full">
+            <h2 class="text-5xl font-bold mb-16 text-center neon-text" data-aos="fade-up">What I'm Learning</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Flutter Learning -->
+                <div class="timeline-item glass rounded-xl p-6 hover-glow" data-aos="fade-up" data-aos-delay="0">
+                    <h3 class="text-xl font-bold mb-2 text-cyan-400">Flutter Development</h3>
+                    <p class="text-slate-400 mb-4 text-sm">
+                        Building beautiful, natively compiled applications for mobile, web, and desktop from a single codebase.
+                    </p>
+                    <div class="w-full bg-slate-700 rounded-full h-2 mb-2">
+                        <div class="bg-gradient-to-r from-cyan-500 to-cyan-400 h-2 rounded-full" style="width: 70%"></div>
+                    </div>
+                    <span class="text-xs text-slate-400">70% Proficiency</span>
+                </div>
+                
+                <!-- Firebase Learning -->
+                <div class="timeline-item glass rounded-xl p-6 hover-glow" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-bold mb-2 text-orange-400">Firebase & Backend</h3>
+                    <p class="text-slate-400 mb-4 text-sm">
+                        Mastering cloud database, authentication, hosting, and real-time data synchronization.
+                    </p>
+                    <div class="w-full bg-slate-700 rounded-full h-2 mb-2">
+                        <div class="bg-gradient-to-r from-orange-500 to-orange-400 h-2 rounded-full" style="width: 60%"></div>
+                    </div>
+                    <span class="text-xs text-slate-400">60% Proficiency</span>
+                </div>
+                
+                <!-- Advanced GSAP & ScrollTrigger -->
+                <div class="timeline-item glass rounded-xl p-6 hover-glow" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-xl font-bold mb-2 text-green-400">Advanced GSAP Animations</h3>
+                    <p class="text-slate-400 mb-4 text-sm">
+                        Exploring complex timeline control, scroll triggers, and kinetic motion design principles.
+                    </p>
+                    <div class="w-full bg-slate-700 rounded-full h-2 mb-2">
+                        <div class="bg-gradient-to-r from-green-500 to-green-400 h-2 rounded-full" style="width: 75%"></div>
+                    </div>
+                    <span class="text-xs text-slate-400">75% Proficiency</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========== CONTACT SECTION ========== -->
+    <section id="contact" class="section">
+        <div class="max-w-3xl mx-auto w-full text-center">
+            <h2 class="text-5xl font-bold mb-8 neon-text" data-aos="fade-up">Let's Connect</h2>
+            <p class="text-xl text-slate-400 mb-12" data-aos="fade-up" data-aos-delay="100">
+                I'm always interested in hearing about new projects and opportunities. Feel free to reach out!
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12" data-aos="zoom-in" data-aos-delay="200">
+                <a href="https://github.com" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 glass rounded-lg hover-glow transition transform hover:scale-105">
+                    <i class="fab fa-github text-2xl"></i>
+                    <span class="font-semibold">GitHub</span>
+                </a>
+                <a href="https://linkedin.com" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 glass rounded-lg hover-glow transition transform hover:scale-105">
+                    <i class="fab fa-linkedin text-2xl text-blue-400"></i>
+                    <span class="font-semibold">LinkedIn</span>
+                </a>
+                <a href="mailto:preetham@example.com" class="flex items-center justify-center gap-3 px-8 py-4 glass rounded-lg hover-glow transition transform hover:scale-105">
+                    <i class="fas fa-envelope text-2xl text-red-400"></i>
+                    <span class="font-semibold">Email</span>
+                </a>
+                <a href="https://twitter.com" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 glass rounded-lg hover-glow transition transform hover:scale-105">
+                    <i class="fab fa-twitter text-2xl text-cyan-400"></i>
+                    <span class="font-semibold">Twitter</span>
+                </a>
+            </div>
+            
+            <div class="glass rounded-xl p-8 border border-slate-700/50" data-aos="fade-up" data-aos-delay="300">
+                <p class="text-slate-300 mb-2">Built with <span class="text-red-500">❤️</span> by Preetham</p>
+                <p class="text-sm text-slate-500">© 2026 All Rights Reserved | Frontend Developer & UI/UX Enthusiast</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: false,
+            offset: 100
+        });
+        
+        // GSAP Register ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // ===== PARTICLES CONFIGURATION =====
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 60, density: { enable: true, value_area: 800 } },
+                color: { value: "#3b82f6" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#3b82f6",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: false,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                },
+                modes: {
+                    repulse: { distance: 100, duration: 0.4 },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+        
+        // ===== THEME TOGGLE =====
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        
+        // Check saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            themeToggle.innerHTML = '<i class="fas fa-moon text-slate-800"></i>';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            themeToggle.innerHTML = isLight ? 
+                '<i class="fas fa-moon text-slate-800"></i>' : 
+                '<i class="fas fa-sun text-yellow-400"></i>';
+        });
+        
+        // ===== SCROLL PROGRESS BAR =====
+        const progressBar = document.querySelector('.scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / scrollHeight) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+        
+        // ===== HERO SECTION ANIMATIONS =====
+        const heroTimeline = gsap.timeline();
+        
+        heroTimeline
+            .to('#greetingText', { opacity: 1, y: 0, duration: 0.6 }, 0.2)
+            .to('#heroTitle', { opacity: 1, y: 0, duration: 0.8 }, 0.3)
+            .to('#heroDescription', { opacity: 1, y: 0, duration: 0.8 }, 0.5)
+            .to('#heroButtons', { opacity: 1, y: 0, duration: 0.8 }, 0.6)
+            .to('#heroImage', { opacity: 1, scale: 1, duration: 1 }, 0.4);
+        
+        // ===== TYPED.JS EFFECT =====
+        const typed = new Typed('#typingContainer', {
+            strings: [
+                'Frontend Developer 💻',
+                'UI/UX Designer 🎨',
+                'Motion Design Enthusiast ✨',
+                'Tech Explorer 🚀'
+            ],
+            typeSpeed: 40,
+            backSpeed: 20,
+            loop: true,
+            startDelay: 1000
+        });
+        
+        // ===== SCROLL ANIMATIONS =====
+        // About Section
+        gsap.to('#about', {
+            scrollTrigger: {
+                trigger: '#about',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            }
+        });
+        
+        // Skill Cards Stagger
+        gsap.to('.skill-card', {
+            scrollTrigger: {
+                trigger: '#skills',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 1,
+            y: 0,
+            stagger: 0.1,
+            duration: 0.6
+        });
+        
+        // Project Cards
+        gsap.to('.project-card', {
+            scrollTrigger: {
+                trigger: '#projects',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.2
+        });
+        
+        // Learning Cards
+        gsap.to('.timeline-item', {
+            scrollTrigger: {
+                trigger: '#learning',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 1,
+            x: 0,
+            stagger: 0.15,
+            duration: 0.8
+        });
+        
+        // ===== BACK TO TOP BUTTON =====
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            gsap.to(window, { scrollTo: 0, duration: 1 });
+        });
+        
+        // ===== SMOOTH SCROLL FOR NAVIGATION =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    gsap.to(window, { scrollTo: target, duration: 1 });
+                }
+            });
+        });
+        
+        // ===== MOUSE CURSOR TRAIL (Optional) =====
+        document.addEventListener('mousemove', (e) => {
+            // Subtle cursor effect without creating too many DOM elements
+            // This is a placeholder for more advanced cursor effects
+        });
+        
+        // ===== SKILL CARDS HOVER EFFECT =====
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                gsap.to(this, { 
+                    y: -10, 
+                    boxShadow: '0 20px 40px rgba(59, 130, 246, 0.3)',
+                    duration: 0.3 
+                });
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                gsap.to(this, { 
+                    y: 0, 
+                    boxShadow: 'none',
+                    duration: 0.3 
+                });
+            });
+        });
+        
+        // ===== INITIAL PAGE LOAD ANIMATION =====
+        window.addEventListener('load', () => {
+            AOS.refresh();
+        });
+        
+        // ===== PARALLAX SCROLL EFFECT =====
+        gsap.to('#heroImage', {
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            },
+            y: -100,
+            opacity: 0.5
+        });
+    </script>
+</body>
+</html>
