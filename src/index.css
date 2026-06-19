@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', system-ui, -apple-system, sans-serif;
+  
+  --color-primary: #a855f7;
+  --color-secondary: #06b6d4;
+  --color-dark-bg: #0a0a0c;
+  --color-dark-card: rgba(15, 15, 20, 0.65);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0c;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.2);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.4);
+}
+
+/* Base Body Styles */
+body {
+  font-family: var(--font-sans);
+  background-color: #0a0a0c;
+  color: #f1f5f9;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Glassmorphism Styles */
+.glass-nav {
+  background: rgba(10, 10, 12, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card {
+  background: rgba(15, 15, 20, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(168, 85, 247, 0.25);
+  box-shadow: 0 15px 35px -5px rgba(168, 85, 247, 0.08), 0 5px 15px -5px rgba(6, 182, 212, 0.08);
+}
+
+.glass-badge {
+  background: rgba(168, 85, 247, 0.06);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+/* Glow Effects */
+.glow-text-purple {
+  text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+.glow-text-cyan {
+  text-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+}
+
+.glow-btn-purple {
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+  transition: all 0.3s ease;
+}
+
+.glow-btn-purple:hover {
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.45);
+}
+
+/* Hide default cursor on desktop screens */
+@media (min-width: 1024px) {
+  .custom-cursor-enabled,
+  .custom-cursor-enabled * {
+    cursor: none !important;
+  }
+}
+
+/* Custom Utilities */
+.text-gradient {
+  background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 50%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-purple-cyan {
+  background: linear-gradient(135deg, #a855f7 0%, #d8b4fe 40%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Timeline Tracer Glow */
+.timeline-glow {
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.5), 0 0 30px rgba(6, 182, 212, 0.3);
+}
+
+/* Reset react-ts layout template defaults */
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  border: none;
+  min-height: auto;
+  display: block;
+}
