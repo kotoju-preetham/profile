@@ -31,7 +31,7 @@ export const Projects: React.FC = () => {
         'Acted as Backend Lead & Product Ideation.',
         'Designed to help young social entrepreneurs make decisions through interactive simulations.',
       ],
-      githubUrl: 'https://github.com/kotojupreetham',
+      githubUrl: 'https://github.com/kotojupreetham/Orion#readme',
       visualSnippet: (
         <div className="w-full h-32 rounded-lg bg-purple-950/20 border border-purple-500/20 flex flex-col justify-around p-3 font-mono text-[10px] text-purple-300 overflow-hidden">
           <div className="flex justify-between border-b border-purple-500/10 pb-1">
@@ -59,7 +59,7 @@ export const Projects: React.FC = () => {
         'Features screen understanding and real-time voice interaction.',
         'Deep exploration into local LLM agent architectures and UI inspection.',
       ],
-      githubUrl: 'https://github.com/kotojupreetham',
+      githubUrl: 'https://github.com/kotojupreetham/AI-Agent',
       visualSnippet: (
         <div className="w-full h-32 rounded-lg bg-cyan-950/20 border border-cyan-500/20 flex flex-col justify-around p-3 font-mono text-[10px] text-cyan-300 overflow-hidden">
           <div className="flex justify-between border-b border-cyan-500/10 pb-1">
@@ -88,7 +88,7 @@ export const Projects: React.FC = () => {
         'Generates structural, comprehensive technical documentation via local LLMs.',
         'Blends AI capabilities seamlessly into developer software engineering workflows.',
       ],
-      githubUrl: 'https://github.com/kotojupreetham',
+      githubUrl: 'https://github.com/kotojupreetham/AI-Doc-Converter',
       visualSnippet: (
         <div className="w-full h-32 rounded-lg bg-indigo-950/20 border border-indigo-500/20 flex flex-col p-3 font-mono text-[10px] text-indigo-300 overflow-hidden">
           <div className="text-slate-400 border-b border-indigo-500/10 pb-1 flex justify-between">
@@ -115,7 +115,7 @@ export const Projects: React.FC = () => {
         'Secure QR code event ticketing and real-time attendance verification.',
         'Powered by a robust Flutter frontend and Firebase Firestore backend (5-month build).',
       ],
-      githubUrl: 'https://github.com/kotojupreetham',
+      githubUrl: 'https://github.com/kotojupreetham/FestFlow',
       visualSnippet: (
         <div className="w-full h-32 rounded-lg bg-emerald-950/20 border border-emerald-500/20 flex items-center justify-center p-3 relative overflow-hidden">
           <div className="w-20 h-28 rounded-lg border border-emerald-500/30 bg-[#0d1612] p-1 flex flex-col justify-between text-[6px] text-emerald-300 shadow-md">
@@ -151,7 +151,7 @@ export const Projects: React.FC = () => {
         'Generates detailed PDF reporting for financial records.',
         'Handles complex payment tracking analytics and automated balance sheets.',
       ],
-      githubUrl: 'https://github.com/kotojupreetham',
+      githubUrl: 'https://github.com/kotojupreetham/Chit-Tracker',
       visualSnippet: (
         <div className="w-full h-32 rounded-lg bg-pink-950/20 border border-pink-500/20 flex p-3 relative overflow-hidden">
           <div className="w-20 h-28 rounded-lg border border-pink-500/30 bg-[#160d12] p-1 flex flex-col justify-between text-[6px] text-pink-300 shadow-md">
@@ -184,7 +184,7 @@ export const Projects: React.FC = () => {
         'The foundation of UI layout and custom CSS styling journey (3-week build).',
         'Implements advanced layouts, hover states, and smooth transitions natively.',
       ],
-      githubUrl: 'https://github.com/kotojupreetham',
+      githubUrl: 'https://github.com/kotojupreetham/Metal-wheels',
       visualSnippet: (
         <div className="w-full h-32 rounded-lg bg-orange-950/20 border border-orange-500/20 flex flex-col justify-between p-3 relative overflow-hidden">
           <div className="flex justify-between items-center">
